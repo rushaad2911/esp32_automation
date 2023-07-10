@@ -1,45 +1,28 @@
 <html>
     <head>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
-        <!-- <script>
+        
 
-            $(document).ready(function(){
-
-                console.log("hello");
-                
-                $("#sub_button").click(function(){
-
-                    $.ajax({
-              
-                        url:"{% url 'adddevice' %}",
-                        success:function(){
-                          
-                            
-                            $("res_box").text("done");
-                            
-                        },
-                        error:function(){
-                            alert("not done");
-                        },
-                    })
-
-                });
-
-            });
-
-            
-
-                 
-        </script> -->
     </head>
     <body>
-        <form id ="data_form">
+        <form action="device/create" id ="data_form">
             <input name="name">
             <!-- <input type="number" name="numval" /> -->
             <button type="submit" id ="sub_button">ADD VAL</button>
             <p id="res_box">res</p>
         
         </form>
+        {% for i in device_name  %}
+
+        <form action="/btn_set_val/">
+            <button type="submit" name="btn" value={{i}} >{{i}}</button>
+        </form>
+
+        <form action="device/delete">
+            <button type="submit" name="de_name" value={{i}} >❌</button>
+        </form>
+        
+        {% endfor %}
 
     </body>
 </html>

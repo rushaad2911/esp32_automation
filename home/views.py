@@ -27,33 +27,32 @@ database = firebase.database()
 
 def home(request):
     
-    d_name=request.GET.get('name')
-
-    if d_name != "":
-            database.child('test').child(d_name).set("LOW")
-    else:
-            print("no name")
+    
     
     context = {"devices":Devices.objects.all()}
+    device_name = database.child('test').get().val()
+    context = {"device_name":device_name}
+      
+   
    
     return render(request,'home.html',context)
   
 
 
-def all_device(request):
+# def all_device(request):
       
-      device_name = database.child('test').get().val()
-      context = {"device_name":device_name}
+#       device_name = database.child('test').get().val()
+#       context = {"device_name":device_name}
       
-      return render(request,'all_device.html',context)
+#       return render(request,'all_device.html',context)
 
 
 
 
-def fb_set_val(request):
+def btn_set_val(request):
+      
       
       fb_val = request.GET.get('btn')
-      
       fb_btn_val =  database.child('test').child(fb_val).get().val()
       
       if fb_btn_val == "HIGH":
@@ -61,8 +60,28 @@ def fb_set_val(request):
       else:
             database.child('test').child(fb_val).set("HIGH")
 
-      return HttpResponseRedirect(reverse("adddevice"))
+      return HttpResponseRedirect(reverse("home"))
 
 
 
-  
+
+def create_device(request):
+      
+      global d_name
+      d_name  =request.GET.get('name')
+
+      if d_name != "":
+            database.child('test').child(d_name).set("LOW")
+           
+      else:
+            print("no name")
+            
+      return HttpResponseRedirect(reverse("home"))
+            
+      
+def delete_device(request):
+      
+      de_name = request.GET.get('de_name')
+      database.child('test').child(de_name).remove()
+      
+      return HttpResponseRedirect(reverse("home"))
