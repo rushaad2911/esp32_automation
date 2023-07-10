@@ -1,0 +1,6 @@
+.sqlite3
+.sql 
+__init__
+__pycache__
+.__pycache__
+.pyc 

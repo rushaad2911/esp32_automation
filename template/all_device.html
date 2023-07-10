@@ -1,0 +1,15 @@
+<html>
+    <head>
+
+    </head>
+    <body>
+        <h1>hello</h1>
+        <form action="/fb_set_val/">
+            {% for i in device_name  %}
+            
+            <button type="submit" name="btn" value={{i}}>{{i}}</button>
+
+            {% endfor %}
+        </form>
+    </body>
+</html>
