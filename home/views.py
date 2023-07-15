@@ -24,17 +24,15 @@ firebase = pyrebase.initialize_app(firebaseConfig)
 auth = firebase.auth()
 database = firebase.database()
 
+global btn_val
 
 def home(request):
-    
-    
-    
-    context = {"devices":Devices.objects.all()}
+   
     device_name = database.child('test').get().val()
-    context = {"device_name":device_name}
-      
-   
-   
+    fb_btn_val = database.child('test').get().val().values()
+    
+    context = {"device_name":device_name,"btn_val":fb_btn_val}
+  
     return render(request,'home.html',context)
   
 
@@ -53,9 +51,10 @@ def btn_set_val(request):
       
       
       fb_val = request.GET.get('btn')
-      fb_btn_val =  database.child('test').child(fb_val).get().val()
       
-      if fb_btn_val == "HIGH":
+      btn_val = database.child('test').child(fb_val).get().val()
+      
+      if btn_val == "HIGH":
             database.child('test').child(fb_val).set("LOW")
       else:
             database.child('test').child(fb_val).set("HIGH")
@@ -85,3 +84,4 @@ def delete_device(request):
       database.child('test').child(de_name).remove()
       
       return HttpResponseRedirect(reverse("home"))
+
