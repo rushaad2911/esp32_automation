@@ -22,6 +22,8 @@ firebaseConfig = {
 
 firebase = pyrebase.initialize_app(firebaseConfig)
 auth = firebase.auth()
+user = auth.sign_in_with_email_and_password('m.rushaadq@gmail.com', 'rushaadq2911')
+user = auth.refresh(user['refreshToken'])
 database = firebase.database()
 
 global btn_val
