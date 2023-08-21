@@ -31,20 +31,16 @@ global btn_val
 def home(request):
    
     device_name = database.child('test').get().val()
-    fb_btn_val = database.child('test').get().val().values()
     
-    context = {"device_name":device_name,"btn_val":fb_btn_val}
+    fb_btn_val = list(database.child('test').get().val().values())    
+
+    final_val = zip(device_name,fb_btn_val)
+  
+   
+    context = {"device_name":device_name,"btn_val":fb_btn_val,"final_val":final_val}
   
     return render(request,'home.html',context)
   
-
-
-# def all_device(request):
-      
-#       device_name = database.child('test').get().val()
-#       context = {"device_name":device_name}
-      
-#       return render(request,'all_device.html',context)
 
 
 

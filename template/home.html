@@ -5,18 +5,25 @@
 
     </head>
     <body>
+         
         <form action="device/create" id ="data_form">
             <input name="name">
             <!-- <input type="number" name="numval" /> -->
             <button type="submit" id ="sub_button">ADD VAL</button>
-            <p id="res_box">responce</p>
+           
         
         </form>
+        
+       {% for x in final_val %}
+        {%for i in x%}
+        <p>{{i}}</p>
+        {%endfor%}
+       {% endfor %}
+
         {% for i in device_name  %}
 
         <form action="/btn_set_val/">
             <button type="submit" name="btn" value={{i}} >{{i}}</button>
-            <p></p>
         </form>
 
         <form action="device/delete">
